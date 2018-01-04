@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+@using web_27AralikMVCCrud.Data.Entities
+@model Product
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>Add</title>
+</head>
+<body>
+    @if (ViewBag.IsSuccess != null || ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-success">@ViewBag.Message</div>
+    }
+    else if (ViewBag.IsSuccess != null || ViewBag.IsSuccess == false)
+    {
+        <div class="alert alert-danger">@ViewBag.Message</div>
+    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                @using (Html.BeginForm())
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)ViewBag.Categories, "Kategori Seçimi yapınız..");
+                    @* @Html.DropDownListFor(x => x.CategoryId, (IEnumerable<SelectListItem>ViewBag.Categories), "Kategori seçimi yapınız.."); *@
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Ürün adı giriniz.." })
+                    <span class="text-danger">@Html.ValidationMessageFor(x => x.Name)</span>
+                    @Html.TextAreaFor(x => x.Price, new { @class = "form-control", @placeholder = "Fiyat giriniz.." })
+                    <span class="text-danger">@Html.ValidationMessageFor(x => x.Price)</span>
+                    @Html.TextAreaFor(x => x.Stock, new { @class = "form-control", @placeholder = "Stok giriniz.." })
+                    <span class="text-danger">@Html.ValidationMessageFor(x => x.Stock)</span>
+                    <input class="btn btn-primary" type="submit" name="name" value="Kategori Kaydet" />
+                }
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
